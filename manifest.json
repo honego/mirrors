@@ -1,0 +1,48 @@
+{
+  "site": {
+    "title": "Honeok Mirrors 🐇",
+    "baseUrl": "https://mirrors.honeok.com",
+    "repository": "https://github.com/honeokX/mirrors"
+  },
+  "defaults": {
+    "checksum": true,
+    "warnBytes": 10485760
+  },
+  "items": [
+    {
+      "name": "acme.sh",
+      "source": "https://github.com/acmesh-official/acme.sh/raw/master/acme.sh",
+      "path": "acme"
+    },
+    {
+      "name": "install.sh",
+      "source": "https://get.docker.com",
+      "path": "docker"
+    },
+    {
+      "name": "gradlew",
+      "source": "https://github.com/gradle/gradle/raw/master/gradlew",
+      "path": "gradle"
+    },
+    {
+      "name": "gradlew.bat",
+      "source": "https://github.com/gradle/gradle/raw/master/gradlew.bat",
+      "path": "gradle"
+    },
+    {
+      "name": "mvnw",
+      "source": "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw",
+      "path": "maven"
+    },
+    {
+      "name": "mvnw.cmd",
+      "source": "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw.cmd",
+      "path": "maven"
+    },
+    {
+      "name": "install.sh",
+      "source": "https://github.com/ohmyzsh/ohmyzsh/raw/master/tools/install.sh",
+      "path": "ohmyzsh"
+    }
+  ]
+}

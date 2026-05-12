@@ -1,0 +1,100 @@
+---
+name: "Build"
+
+on:
+  push: {}
+  pull_request: {}
+  schedule:
+    - cron: "0 22,4,10,16 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: "Build and publish release"
+    runs-on: ubuntu-latest
+    outputs:
+      release_changed: ${{ steps.publish_release.outputs.release_changed }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: "Install dependencies"
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r tools/requirements.txt
+
+      - name: "Generate release assets"
+        run: |
+          bash tools/build.sh
+          python3 tools/render.py
+          bash tools/publish.sh
+
+      - name: "Publish to release branch"
+        id: publish_release
+        run: |
+          set -Eexuo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin release || true
+          if git show-ref --verify --quiet refs/remotes/origin/release; then
+            git worktree add -B release release-worktree origin/release
+          else
+            git worktree add --detach release-worktree
+            git -C release-worktree checkout --orphan release
+            git -C release-worktree rm -rf . 2>/dev/null || true
+          fi
+          rsync -av --delete --exclude ".git" publish/ release-worktree/
+          git -C release-worktree add -A
+          if git -C release-worktree diff --cached --quiet -- . ":(exclude)index.html"; then
+            echo "No release changes."
+            echo "release_changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git -C release-worktree commit --signoff --no-verify -m "deploy: update mirror assets [skip ci]"
+          git -C release-worktree push origin release
+          echo "release_changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: "Upload release artifact"
+        uses: actions/upload-artifact@v4
+        if: steps.publish_release.outputs.release_changed == 'true'
+        with:
+          name: artifact-${{ github.sha }}-${{ github.run_number }}
+          path: ./publish
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy_to_cloudflare:
+    needs: [build]
+    name: "Deploy to cloudflare pages"
+    if: github.ref == 'refs/heads/master' && needs.build.outputs.release_changed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Download release artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact-${{ github.sha }}-${{ github.run_number }}
+          path: publish
+
+      - name: "Deploy to cloudflare pages"
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy publish --project-name=${{ github.event.repository.name }} --commit-dirty=true --branch=${{ github.ref_name }}
+          wranglerVersion: "3.114.12"

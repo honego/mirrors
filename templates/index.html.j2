@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>honeok mirrors 🐇</title>
+  <link rel="icon" type="image/svg+xml" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+  <link rel="shortcut icon" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      max-width: 1000px;
+      min-height: calc(100vh - 64px);
+      margin: 32px auto;
+      padding: 0 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .meta {
+      color: #666;
+      margin-top: 4px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+    }
+
+    th,
+    td {
+      padding: 4px 8px;
+      border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      white-space: nowrap;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 700;
+    }
+
+    td.name {
+      width: 100%;
+      white-space: normal;
+    }
+
+    td.size {
+      color: #666;
+      text-align: right;
+    }
+
+    .dir {
+      color: #666;
+      font-weight: 700;
+    }
+
+    .entry {
+      display: inline-block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 28px;
+      color: #666;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>{{ site.title }}</h1>
+    <div class="meta">Index of {{ currentPath }}</div>
+
+    {% if site.baseUrl %}
+    <div class="meta">
+      Base URL:
+      <a href="{{ site.baseUrl }}" target="_blank" rel="noopener noreferrer">{{ site.baseUrl }}</a>
+    </div>
+    {% endif %}
+
+    {% if site.repository %}
+    <div class="meta">
+      Repository:
+      <a href="{{ site.repository }}" target="_blank" rel="noopener noreferrer">{{ site.repository }}</a>
+    </div>
+    {% endif %}
+
+    <div class="meta">Last Sync: {{ generatedAt }}</div>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>File Size</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for entry in entries %}
+        <tr>
+          <td class="name">
+            <span class="entry" style="padding-left: {{ entry.level * 16 }}px">
+              {% if entry.type == "dir" %}
+              <span class="dir">{{ entry.name }}</span>
+              {% else %}
+              <a href="{{ entry.href }}">{{ entry.name }}</a>
+              {% endif %}
+            </span>
+          </td>
+          <td class="size">{{ entry.size }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    Powered by honeok
+  </footer>
+</body>
+</html>
