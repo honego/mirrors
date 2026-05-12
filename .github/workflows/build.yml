@@ -24,12 +24,12 @@ jobs:
 
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: "Setup Python"
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 
@@ -70,7 +70,7 @@ jobs:
           echo "release_changed=true" >> "$GITHUB_OUTPUT"
 
       - name: "Upload release artifact"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: steps.publish_release.outputs.release_changed == 'true'
         with:
           name: artifact-${{ github.sha }}-${{ github.run_number }}
@@ -86,7 +86,7 @@ jobs:
 
     steps:
       - name: "Download release artifact"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: artifact-${{ github.sha }}-${{ github.run_number }}
           path: publish
