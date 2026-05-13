@@ -18,5 +18,13 @@ jobs:
   codeql-analysis:
     name: "Codeql analysis"
     uses: actions/reusable-workflows/.github/workflows/codeql-analysis.yml@main
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    strategy:
+      fail-fast: true
+      matrix:
+        language: ["actions", "python"]
     with:
-      languages: '["python"]'
+      languages: '["${{ matrix.language }}"]'
