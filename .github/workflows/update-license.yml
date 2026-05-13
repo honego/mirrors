@@ -2,7 +2,6 @@
 name: "Update license"
 
 on:
-  push: {}
   schedule:
     - cron: "0 6 1 1 *"
   workflow_dispatch:
