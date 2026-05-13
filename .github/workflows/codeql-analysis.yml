@@ -3,9 +3,9 @@ name: "Codeql analysis"
 
 on:
   push:
-    branches-ignore:
-      - "dependabot/**"
-  pull_request: {}
+    branches: [master]
+  pull_request:
+    branches: [master]
   schedule:
     - cron: "0 16 * * *"
   workflow_dispatch:
@@ -14,38 +14,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-
 jobs:
-  analyze:
-    name: "Analyze ${{ matrix.language }}"
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-      pull-requests: read
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ["actions", "python"]
-
-    steps:
-      - name: "Checkout repository"
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-
-      - name: "Initialize codeql database"
-        uses: github/codeql-action/init@v4
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: "Autobuild language sources"
-        uses: github/codeql-action/autobuild@v4
-
-      - name: "Run codeql analysis"
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:${{ matrix.language }}"
+  codeql-analysis:
+    name: "Codeql analysis"
+    uses: actions/reusable-workflows/.github/workflows/codeql-analysis.yml@main
+    with:
+      language: ["actions", "python"]

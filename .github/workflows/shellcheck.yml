@@ -1,0 +1,23 @@
+---
+name: "Run shellcheck"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: "Run shellcheck"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+
+      - name: "Run shellcheck"
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "./tools"

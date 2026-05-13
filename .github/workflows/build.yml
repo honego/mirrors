@@ -2,8 +2,10 @@
 name: "Build"
 
 on:
-  push: {}
-  pull_request: {}
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
   schedule:
     - cron: "0 22,4,10,16 * * *"
   workflow_dispatch:
