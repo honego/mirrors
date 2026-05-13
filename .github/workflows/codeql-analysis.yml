@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   codeql-analysis:
-    name: "Codeql analysis"
     uses: actions/reusable-workflows/.github/workflows/codeql-analysis.yml@main
     permissions:
       contents: read
