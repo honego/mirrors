@@ -19,4 +19,4 @@ jobs:
     name: "Codeql analysis"
     uses: actions/reusable-workflows/.github/workflows/codeql-analysis.yml@main
     with:
-      language: '["actions", "python"]'
+      languages: '["python"]'
