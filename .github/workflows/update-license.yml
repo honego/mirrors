@@ -1,0 +1,37 @@
+---
+name: "Update license"
+
+on:
+  push: {}
+  schedule:
+    - cron: "0 6 1 1 *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: "Update license"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Update license"
+        uses: FantasticFiasco/action-update-license-year@v3
+        with:
+          token: ${{ github.token }}
+          path: "LICENSE"
+          commitTitle: "docs(license): update license year to {{currentYear}}"
+          commitAuthorName: "github-actions[bot]"
+          commitAuthorEmail: "41898282+github-actions[bot]@users.noreply.github.com"
+          prTitle: "docs(license): update license year to {{currentYear}}"
+          labels: "documentation"
