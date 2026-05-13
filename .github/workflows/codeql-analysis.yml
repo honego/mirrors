@@ -2,7 +2,9 @@
 name: "Codeql analysis"
 
 on:
-  push: {}
+  push:
+    branches-ignore:
+      - "dependabot/**"
   pull_request: {}
   schedule:
     - cron: "0 16 * * *"
