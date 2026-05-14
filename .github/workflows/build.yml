@@ -37,6 +37,7 @@ jobs:
 
       - name: "Install dependencies"
         run: |
+          set -Eexuo pipefail
           python --version
           pip install --upgrade pip
           pip install -r tools/requirements.txt
