@@ -6,7 +6,6 @@ _log() {
     printf '%s [%s] %s\n' "$(date +"%F %T")" "$(basename "$0")" "$*"
 }
 
-env
 PROJECT_TOP="$(git rev-parse --show-toplevel 2> /dev/null)"
 pushd "$PROJECT_TOP" || exit 1
 
