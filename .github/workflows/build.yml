@@ -44,7 +44,7 @@ jobs:
       - name: "Generate and publish release assets"
         id: publish_release
         env:
-          PUBLISH_RELEASE_BRANCH: ${{ github.ref == 'refs/heads/master' && github.event_name != 'pull_request' }}
+          PUBLISH_RELEASE_BRANCH: ${{ github.ref_name == 'master' && github.event_name != 'pull_request' }}
         run: |
           bash tools/build.sh
           python3 tools/render.py
@@ -62,7 +62,7 @@ jobs:
   deploy_to_cloudflare:
     needs: [build]
     name: "Deploy to cloudflare pages"
-    if: github.ref == 'refs/heads/master' && needs.build.outputs.release_changed == 'true'
+    if: github.ref_name == 'master' && needs.build.outputs.release_changed == 'true'
     runs-on: ubuntu-latest
 
     steps:
