@@ -33,12 +33,13 @@ jobs:
       - name: "Setup Python"
         uses: actions/setup-python@v6
         with:
-          python-version: "3.x"
+          python-version-file: "tools/.python-version"
 
       - name: "Install dependencies"
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install -r tools/requirements.txt
+          python --version
+          pip install --upgrade pip
+          pip install -r tools/requirements.txt
 
       - name: "Generate release assets"
         run: |
