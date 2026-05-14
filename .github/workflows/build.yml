@@ -41,36 +41,14 @@ jobs:
           pip install --upgrade pip
           pip install -r tools/requirements.txt
 
-      - name: "Generate release assets"
+      - name: "Generate and publish release assets"
+        id: publish_release
+        env:
+          PUBLISH_RELEASE_BRANCH: ${{ github.ref == 'refs/heads/master' && github.event_name != 'pull_request' }}
         run: |
           bash tools/build.sh
           python3 tools/render.py
           bash tools/publish.sh
-
-      - name: "Publish to release branch"
-        id: publish_release
-        run: |
-          set -Eexuo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin release || true
-          if git show-ref --verify --quiet refs/remotes/origin/release; then
-            git worktree add -B release release-worktree origin/release
-          else
-            git worktree add --detach release-worktree
-            git -C release-worktree checkout --orphan release
-            git -C release-worktree rm -rf . 2>/dev/null || true
-          fi
-          rsync -av --delete --exclude ".git" publish/ release-worktree/
-          git -C release-worktree add -A
-          if git -C release-worktree diff --cached --quiet -- . ":(exclude)index.html"; then
-            echo "No release changes."
-            echo "release_changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          git -C release-worktree commit --signoff --no-verify -m "deploy: update mirror assets [skip ci]"
-          git -C release-worktree push origin release
-          echo "release_changed=true" >> "$GITHUB_OUTPUT"
 
       - name: "Upload release artifact"
         uses: actions/upload-artifact@v7
