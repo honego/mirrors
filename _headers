@@ -1,0 +1,90 @@
+/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=30, stale-if-error=60
+  X-Content-Type-Options: nosniff
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+/index.html
+  Content-Type: text/html; charset=utf-8
+  Content-Disposition: inline
+
+/acme/acme.sh
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/acme/acme.sh.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/docker/install.sh
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/docker/install.sh.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/gradle/gradlew
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/gradle/gradlew.bat
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/gradle/gradlew.bat.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/gradle/gradlew.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/maven/mvnw
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/maven/mvnw.cmd
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/maven/mvnw.cmd.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/maven/mvnw.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/ohmyzsh/install.sh
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/ohmyzsh/install.sh.sha256sum
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/LICENSE
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
+
+/README.md
+  Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Robots-Tag: noindex
