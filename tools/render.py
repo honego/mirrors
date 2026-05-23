@@ -205,7 +205,6 @@ def writeHeaders(projectTop: Path) -> None:
         "/*",
         f"  Cache-Control: {cacheControl}",
         "  X-Content-Type-Options: nosniff",
-        "  Content-Disposition: inline",
         "",
         "https://:project.pages.dev/*",
         "  X-Robots-Tag: noindex",
@@ -224,7 +223,10 @@ def writeHeaders(projectTop: Path) -> None:
             contentType = guessContentType(filePath, textFile)
         lines.append(href)
         lines.append(f"  Content-Type: {contentType}")
-        lines.append("  Content-Disposition: inline")
+        if textFile:
+            lines.append("  Content-Disposition: inline")
+        else:
+            lines.append("  Content-Disposition: attachment")
         lines.append("  X-Robots-Tag: noindex")
         lines.append("")
     headersFile.write_text("\n".join(lines), encoding="utf-8")
