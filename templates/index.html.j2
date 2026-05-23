@@ -196,7 +196,6 @@
         {% for entry in entries %}
         <tr
           data-type="{{ entry.type }}"
-          data-parent="{{ 'true' if entry.parent else 'false' }}"
           data-name="{{ entry.sortName }}"
           data-size="{{ entry.sizeBytes }}"
         >
@@ -242,13 +241,6 @@
       const direction = order === "D" ? -1 : 1;
 
       rows.sort((left, right) => {
-        if (left.dataset.parent === "true") {
-          return -1;
-        }
-        if (right.dataset.parent === "true") {
-          return 1;
-        }
-
         const leftType = left.dataset.type === "dir" ? 0 : 1;
         const rightType = right.dataset.type === "dir" ? 0 : 1;
         if (leftType !== rightType) {

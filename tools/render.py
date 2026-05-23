@@ -128,23 +128,8 @@ def getCurrentPath(projectTop: Path, currentDir: Path) -> str:
 def buildEntries(
     projectTop: Path,
     currentDir: Path,
-    includeParent: bool,
 ) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
-
-    if includeParent:
-        entries.append(
-            {
-                "type": "dir",
-                "name": "Parent directory/",
-                "title": "Parent directory",
-                "href": "../",
-                "size": "-",
-                "sizeBytes": 0,
-                "sortName": "..",
-                "parent": True,
-            }
-        )
 
     for childPath in sorted(currentDir.iterdir(), key=sortLikeGitHub):
         if shouldExclude(childPath):
@@ -160,7 +145,6 @@ def buildEntries(
                     "size": "-",
                     "sizeBytes": 0,
                     "sortName": childPath.name.casefold(),
-                    "parent": False,
                 }
             )
             continue
@@ -174,7 +158,6 @@ def buildEntries(
                     "size": formatSize(childStat.st_size),
                     "sizeBytes": childStat.st_size,
                     "sortName": childPath.name.casefold(),
-                    "parent": False,
                 }
             )
     return entries
@@ -275,7 +258,6 @@ def renderIndex(projectTop: Path, manifest: dict[str, Any]) -> None:
             entries=buildEntries(
                 projectTop=projectTop,
                 currentDir=currentDir,
-                includeParent=currentDir != projectTop,
             ),
         )
         outputFile.write_text(html, encoding="utf-8")

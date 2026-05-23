@@ -37,12 +37,6 @@
       ],
       "path": ["maven/mvnw", "maven/mvnw.cmd"],
       "isRepository": false
-    },
-    {
-      "name": "warp.sh",
-      "source": "https://gitlab.com/fscarmen/warp",
-      "path": "warp.sh",
-      "isRepository": true
     }
   ]
 }
