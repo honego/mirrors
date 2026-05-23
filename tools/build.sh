@@ -27,7 +27,7 @@ die() {
 }
 
 curl() {
-    local rc
+    local i rc
 
     # 添加 --fail 不然404退出码也为0
     # 32位cygwin已停止更新 证书可能有问题 添加 --insecure
@@ -116,7 +116,7 @@ sync_repository() {
 
 main() {
     local item_is_repository item_name item_path item_path_count item_path_type
-    local item_source item_source_count item_source_type
+    local item_source item_source_count item_source_type i j
 
     pushd "$PROJECT_TOP" || exit 1
     for i in $(seq 0 $((ITEM_COUNT - 1))); do
