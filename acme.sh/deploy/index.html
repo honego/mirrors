@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Honeok Mirrors 🐇</title>
+  <link rel="icon" type="image/svg+xml" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+  <link rel="shortcut icon" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      max-width: 1000px;
+      min-height: calc(100vh - 64px);
+      margin: 32px auto;
+      padding: 0 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .meta {
+      color: #666;
+      margin-top: 4px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+    }
+
+    th,
+    td {
+      padding: 4px 8px;
+      border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      white-space: nowrap;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .icon {
+      width: 20px;
+      padding-right: 0;
+      text-align: center;
+    }
+
+    td.name {
+      width: 100%;
+      white-space: normal;
+      word-break: break-all;
+    }
+
+    td.size,
+    th.size {
+      color: #666;
+      text-align: right;
+    }
+
+    .entry-icon {
+      position: relative;
+      display: inline-block;
+      width: 14px;
+      height: 12px;
+      vertical-align: -2px;
+    }
+
+    .entry-icon::before,
+    .entry-icon::after {
+      position: absolute;
+      display: block;
+      content: "";
+      background: currentColor;
+    }
+
+    .entry-icon.dir::before {
+      top: 1px;
+      left: 1px;
+      width: 6px;
+      height: 3px;
+      border-radius: 1px 1px 0 0;
+    }
+
+    .entry-icon.dir::after {
+      right: 1px;
+      bottom: 1px;
+      left: 1px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    .entry-icon.file::before {
+      inset: 1px 3px 1px 3px;
+      border-radius: 1px;
+    }
+
+    .entry-icon.file::after {
+      top: 1px;
+      right: 3px;
+      width: 4px;
+      height: 4px;
+      background: Canvas;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+    }
+
+    .entry {
+      display: inline-block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 28px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        margin: 22px auto;
+      }
+
+      th.size,
+      td.size {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Honeok Mirrors 🐇</h1>
+    <div class="meta">Index of /acme.sh/deploy/</div>
+
+    <div class="meta">
+      Base URL:
+      <a href="https://mirrors.honeok.com" target="_blank" rel="noopener noreferrer">https://mirrors.honeok.com</a>
+    </div>
+
+    <div class="meta">
+      Repository:
+      <a href="https://github.com/honeokX/mirrors" target="_blank" rel="noopener noreferrer">https://github.com/honeokX/mirrors</a>
+    </div>
+
+    <div class="meta">Last Sync: 2026-05-23T08:04:02.349Z</div>
+  </header>
+
+  <main>
+    <table data-list>
+      <thead>
+        <tr>
+          <th class="icon"></th>
+          <th>
+            <a href="?C=N&amp;O=A">File Name</a>
+            <a href="?C=N&amp;O=D" aria-label="Sort file names descending">&darr;</a>
+          </th>
+          <th class="size">
+            <a href="?C=S&amp;O=A">File Size</a>
+            <a href="?C=S&amp;O=D" aria-label="Sort file sizes descending">&darr;</a>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          data-type="dir"
+          data-parent="true"
+          data-name=".."
+          data-size="0"
+        >
+          <td class="icon">
+            <span class="entry-icon dir" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="../" title="Parent directory">Parent directory/</a>
+          </td>
+          <td class="size">-</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ali_cdn.sh"
+          data-size="2753"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ali_cdn.sh" title="ali_cdn.sh">ali_cdn.sh</a>
+          </td>
+          <td class="size">2.7 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ali_dcdn.sh"
+          data-size="2780"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ali_dcdn.sh" title="ali_dcdn.sh">ali_dcdn.sh</a>
+          </td>
+          <td class="size">2.7 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="apache.sh"
+          data-size="512"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="apache.sh" title="apache.sh">apache.sh</a>
+          </td>
+          <td class="size">512 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="byteplus_alb.sh"
+          data-size="18295"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="byteplus_alb.sh" title="byteplus_alb.sh">byteplus_alb.sh</a>
+          </td>
+          <td class="size">17.9 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="cachefly.sh"
+          data-size="1614"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="cachefly.sh" title="cachefly.sh">cachefly.sh</a>
+          </td>
+          <td class="size">1.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="cleverreach.sh"
+          data-size="3520"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="cleverreach.sh" title="cleverreach.sh">cleverreach.sh</a>
+          </td>
+          <td class="size">3.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="consul.sh"
+          data-size="3138"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="consul.sh" title="consul.sh">consul.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="cpanel_uapi.sh"
+          data-size="7683"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="cpanel_uapi.sh" title="cpanel_uapi.sh">cpanel_uapi.sh</a>
+          </td>
+          <td class="size">7.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="directadmin.sh"
+          data-size="3025"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="directadmin.sh" title="directadmin.sh">directadmin.sh</a>
+          </td>
+          <td class="size">3.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="docker.sh"
+          data-size="9332"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="docker.sh" title="docker.sh">docker.sh</a>
+          </td>
+          <td class="size">9.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="dovecot.sh"
+          data-size="484"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="dovecot.sh" title="dovecot.sh">dovecot.sh</a>
+          </td>
+          <td class="size">484 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="edgio.sh"
+          data-size="2987"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="edgio.sh" title="edgio.sh">edgio.sh</a>
+          </td>
+          <td class="size">2.9 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="exim4.sh"
+          data-size="3195"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="exim4.sh" title="exim4.sh">exim4.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="fritzbox.sh"
+          data-size="4659"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="fritzbox.sh" title="fritzbox.sh">fritzbox.sh</a>
+          </td>
+          <td class="size">4.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="gcore_cdn.sh"
+          data-size="4780"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="gcore_cdn.sh" title="gcore_cdn.sh">gcore_cdn.sh</a>
+          </td>
+          <td class="size">4.7 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="gitlab.sh"
+          data-size="2082"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="gitlab.sh" title="gitlab.sh">gitlab.sh</a>
+          </td>
+          <td class="size">2.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="haproxy.sh"
+          data-size="15789"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="haproxy.sh" title="haproxy.sh">haproxy.sh</a>
+          </td>
+          <td class="size">15.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="kemplm.sh"
+          data-size="3193"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="kemplm.sh" title="kemplm.sh">kemplm.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="keychain.sh"
+          data-size="669"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="keychain.sh" title="keychain.sh">keychain.sh</a>
+          </td>
+          <td class="size">669 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="keyhelp.sh"
+          data-size="5088"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="keyhelp.sh" title="keyhelp.sh">keyhelp.sh</a>
+          </td>
+          <td class="size">5.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="keyhelp_api.sh"
+          data-size="2414"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="keyhelp_api.sh" title="keyhelp_api.sh">keyhelp_api.sh</a>
+          </td>
+          <td class="size">2.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="kong.sh"
+          data-size="2886"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="kong.sh" title="kong.sh">kong.sh</a>
+          </td>
+          <td class="size">2.8 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="lighttpd.sh"
+          data-size="10156"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="lighttpd.sh" title="lighttpd.sh">lighttpd.sh</a>
+          </td>
+          <td class="size">9.9 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="localcopy.sh"
+          data-size="5278"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="localcopy.sh" title="localcopy.sh">localcopy.sh</a>
+          </td>
+          <td class="size">5.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mailcow.sh"
+          data-size="1831"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mailcow.sh" title="mailcow.sh">mailcow.sh</a>
+          </td>
+          <td class="size">1.8 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="multideploy.sh"
+          data-size="9431"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="multideploy.sh" title="multideploy.sh">multideploy.sh</a>
+          </td>
+          <td class="size">9.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="myapi.sh"
+          data-size="592"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="myapi.sh" title="myapi.sh">myapi.sh</a>
+          </td>
+          <td class="size">592 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mydevil.sh"
+          data-size="1472"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mydevil.sh" title="mydevil.sh">mydevil.sh</a>
+          </td>
+          <td class="size">1.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mysqld.sh"
+          data-size="512"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mysqld.sh" title="mysqld.sh">mysqld.sh</a>
+          </td>
+          <td class="size">512 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="netlify.sh"
+          data-size="2108"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="netlify.sh" title="netlify.sh">netlify.sh</a>
+          </td>
+          <td class="size">2.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="nginx.sh"
+          data-size="509"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="nginx.sh" title="nginx.sh">nginx.sh</a>
+          </td>
+          <td class="size">509 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="openmediavault.sh"
+          data-size="6401"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="openmediavault.sh" title="openmediavault.sh">openmediavault.sh</a>
+          </td>
+          <td class="size">6.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="opensshd.sh"
+          data-size="518"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="opensshd.sh" title="opensshd.sh">opensshd.sh</a>
+          </td>
+          <td class="size">518 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="openstack.sh"
+          data-size="8699"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="openstack.sh" title="openstack.sh">openstack.sh</a>
+          </td>
+          <td class="size">8.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="panos.sh"
+          data-size="12927"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="panos.sh" title="panos.sh">panos.sh</a>
+          </td>
+          <td class="size">12.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="peplink.sh"
+          data-size="4447"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="peplink.sh" title="peplink.sh">peplink.sh</a>
+          </td>
+          <td class="size">4.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="proxmoxbs.sh"
+          data-size="4733"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="proxmoxbs.sh" title="proxmoxbs.sh">proxmoxbs.sh</a>
+          </td>
+          <td class="size">4.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="proxmoxve.sh"
+          data-size="5274"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="proxmoxve.sh" title="proxmoxve.sh">proxmoxve.sh</a>
+          </td>
+          <td class="size">5.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="pureftpd.sh"
+          data-size="518"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="pureftpd.sh" title="pureftpd.sh">pureftpd.sh</a>
+          </td>
+          <td class="size">518 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="qiniu.sh"
+          data-size="3195"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="qiniu.sh" title="qiniu.sh">qiniu.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="readme.md"
+          data-size="101"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="README.md" title="README.md">README.md</a>
+          </td>
+          <td class="size">101 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="routeros.sh"
+          data-size="6128"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="routeros.sh" title="routeros.sh">routeros.sh</a>
+          </td>
+          <td class="size">6.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ruckus.sh"
+          data-size="6185"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ruckus.sh" title="ruckus.sh">ruckus.sh</a>
+          </td>
+          <td class="size">6.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ssh.sh"
+          data-size="15875"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ssh.sh" title="ssh.sh">ssh.sh</a>
+          </td>
+          <td class="size">15.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="strongswan.sh"
+          data-size="2684"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="strongswan.sh" title="strongswan.sh">strongswan.sh</a>
+          </td>
+          <td class="size">2.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="synology_dsm.sh"
+          data-size="20677"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="synology_dsm.sh" title="synology_dsm.sh">synology_dsm.sh</a>
+          </td>
+          <td class="size">20.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="truenas.sh"
+          data-size="12369"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="truenas.sh" title="truenas.sh">truenas.sh</a>
+          </td>
+          <td class="size">12.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="truenas_ws.sh"
+          data-size="9435"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="truenas_ws.sh" title="truenas_ws.sh">truenas_ws.sh</a>
+          </td>
+          <td class="size">9.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="unifi.sh"
+          data-size="13690"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="unifi.sh" title="unifi.sh">unifi.sh</a>
+          </td>
+          <td class="size">13.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="vault.sh"
+          data-size="7022"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="vault.sh" title="vault.sh">vault.sh</a>
+          </td>
+          <td class="size">6.9 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="vault_cli.sh"
+          data-size="3662"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="vault_cli.sh" title="vault_cli.sh">vault_cli.sh</a>
+          </td>
+          <td class="size">3.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="vsftpd.sh"
+          data-size="3152"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="vsftpd.sh" title="vsftpd.sh">vsftpd.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="windows_rdp.sh"
+          data-size="6568"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="windows_rdp.sh" title="windows_rdp.sh">windows_rdp.sh</a>
+          </td>
+          <td class="size">6.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="zyxel_gs1900.sh"
+          data-size="19066"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="zyxel_gs1900.sh" title="zyxel_gs1900.sh">zyxel_gs1900.sh</a>
+          </td>
+          <td class="size">18.6 KiB</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    Powered by honeok
+  </footer>
+
+  <script>
+    (() => {
+      const table = document.querySelector("[data-list]");
+      const tbody = table?.querySelector("tbody");
+      if (!table || !tbody) {
+        return;
+      }
+
+      const rows = Array.from(tbody.querySelectorAll("tr[data-type]"));
+      if (rows.length < 2) {
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const column = params.get("C") || "N";
+      const order = params.get("O") || "A";
+      const direction = order === "D" ? -1 : 1;
+
+      rows.sort((left, right) => {
+        if (left.dataset.parent === "true") {
+          return -1;
+        }
+        if (right.dataset.parent === "true") {
+          return 1;
+        }
+
+        const leftType = left.dataset.type === "dir" ? 0 : 1;
+        const rightType = right.dataset.type === "dir" ? 0 : 1;
+        if (leftType !== rightType) {
+          return leftType - rightType;
+        }
+
+        if (column === "S") {
+          return (Number(left.dataset.size || 0) - Number(right.dataset.size || 0)) * direction;
+        }
+
+        return (left.dataset.name || "").localeCompare(
+          right.dataset.name || "",
+          undefined,
+          { numeric: true },
+        ) * direction;
+      });
+
+      rows.forEach((row) => tbody.appendChild(row));
+    })();
+  </script>
+</body>
+</html>

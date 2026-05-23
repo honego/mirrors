@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Honeok Mirrors 🐇</title>
+  <link rel="icon" type="image/svg+xml" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+  <link rel="shortcut icon" href="https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg">
+
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    body {
+      max-width: 1000px;
+      min-height: calc(100vh - 64px);
+      margin: 32px auto;
+      padding: 0 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .meta {
+      color: #666;
+      margin-top: 4px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+    }
+
+    th,
+    td {
+      padding: 4px 8px;
+      border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      white-space: nowrap;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .icon {
+      width: 20px;
+      padding-right: 0;
+      text-align: center;
+    }
+
+    td.name {
+      width: 100%;
+      white-space: normal;
+      word-break: break-all;
+    }
+
+    td.size,
+    th.size {
+      color: #666;
+      text-align: right;
+    }
+
+    .entry-icon {
+      position: relative;
+      display: inline-block;
+      width: 14px;
+      height: 12px;
+      vertical-align: -2px;
+    }
+
+    .entry-icon::before,
+    .entry-icon::after {
+      position: absolute;
+      display: block;
+      content: "";
+      background: currentColor;
+    }
+
+    .entry-icon.dir::before {
+      top: 1px;
+      left: 1px;
+      width: 6px;
+      height: 3px;
+      border-radius: 1px 1px 0 0;
+    }
+
+    .entry-icon.dir::after {
+      right: 1px;
+      bottom: 1px;
+      left: 1px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    .entry-icon.file::before {
+      inset: 1px 3px 1px 3px;
+      border-radius: 1px;
+    }
+
+    .entry-icon.file::after {
+      top: 1px;
+      right: 3px;
+      width: 4px;
+      height: 4px;
+      background: Canvas;
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+    }
+
+    .entry {
+      display: inline-block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 28px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        margin: 22px auto;
+      }
+
+      th.size,
+      td.size {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Honeok Mirrors 🐇</h1>
+    <div class="meta">Index of /acme.sh/notify/</div>
+
+    <div class="meta">
+      Base URL:
+      <a href="https://mirrors.honeok.com" target="_blank" rel="noopener noreferrer">https://mirrors.honeok.com</a>
+    </div>
+
+    <div class="meta">
+      Repository:
+      <a href="https://github.com/honeokX/mirrors" target="_blank" rel="noopener noreferrer">https://github.com/honeokX/mirrors</a>
+    </div>
+
+    <div class="meta">Last Sync: 2026-05-23T08:04:02.349Z</div>
+  </header>
+
+  <main>
+    <table data-list>
+      <thead>
+        <tr>
+          <th class="icon"></th>
+          <th>
+            <a href="?C=N&amp;O=A">File Name</a>
+            <a href="?C=N&amp;O=D" aria-label="Sort file names descending">&darr;</a>
+          </th>
+          <th class="size">
+            <a href="?C=S&amp;O=A">File Size</a>
+            <a href="?C=S&amp;O=D" aria-label="Sort file sizes descending">&darr;</a>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          data-type="dir"
+          data-parent="true"
+          data-name=".."
+          data-size="0"
+        >
+          <td class="icon">
+            <span class="entry-icon dir" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="../" title="Parent directory">Parent directory/</a>
+          </td>
+          <td class="size">-</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="aws_ses.sh"
+          data-size="6856"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="aws_ses.sh" title="aws_ses.sh">aws_ses.sh</a>
+          </td>
+          <td class="size">6.7 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="bark.sh"
+          data-size="3878"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="bark.sh" title="bark.sh">bark.sh</a>
+          </td>
+          <td class="size">3.8 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="callmebotwhatsapp.sh"
+          data-size="1443"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="callmebotWhatsApp.sh" title="callmebotWhatsApp.sh">callmebotWhatsApp.sh</a>
+          </td>
+          <td class="size">1.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="cqhttp.sh"
+          data-size="2211"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="cqhttp.sh" title="cqhttp.sh">cqhttp.sh</a>
+          </td>
+          <td class="size">2.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="dingtalk.sh"
+          data-size="2318"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="dingtalk.sh" title="dingtalk.sh">dingtalk.sh</a>
+          </td>
+          <td class="size">2.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="discord.sh"
+          data-size="1646"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="discord.sh" title="discord.sh">discord.sh</a>
+          </td>
+          <td class="size">1.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="feishu.sh"
+          data-size="1375"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="feishu.sh" title="feishu.sh">feishu.sh</a>
+          </td>
+          <td class="size">1.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="gotify.sh"
+          data-size="1647"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="gotify.sh" title="gotify.sh">gotify.sh</a>
+          </td>
+          <td class="size">1.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ifttt.sh"
+          data-size="3057"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ifttt.sh" title="ifttt.sh">ifttt.sh</a>
+          </td>
+          <td class="size">3.0 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mail.sh"
+          data-size="3180"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mail.sh" title="mail.sh">mail.sh</a>
+          </td>
+          <td class="size">3.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mailgun.sh"
+          data-size="4221"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mailgun.sh" title="mailgun.sh">mailgun.sh</a>
+          </td>
+          <td class="size">4.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="mattermost.sh"
+          data-size="1802"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="mattermost.sh" title="mattermost.sh">mattermost.sh</a>
+          </td>
+          <td class="size">1.8 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="ntfy.sh"
+          data-size="1619"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="ntfy.sh" title="ntfy.sh">ntfy.sh</a>
+          </td>
+          <td class="size">1.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="opsgenie.sh"
+          data-size="4653"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="opsgenie.sh" title="opsgenie.sh">opsgenie.sh</a>
+          </td>
+          <td class="size">4.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="pop.sh"
+          data-size="290"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="pop.sh" title="pop.sh">pop.sh</a>
+          </td>
+          <td class="size">290 B</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="postmark.sh"
+          data-size="1980"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="postmark.sh" title="postmark.sh">postmark.sh</a>
+          </td>
+          <td class="size">1.9 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="pushbullet.sh"
+          data-size="1621"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="pushbullet.sh" title="pushbullet.sh">pushbullet.sh</a>
+          </td>
+          <td class="size">1.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="pushover.sh"
+          data-size="2392"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="pushover.sh" title="pushover.sh">pushover.sh</a>
+          </td>
+          <td class="size">2.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="sendgrid.sh"
+          data-size="2269"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="sendgrid.sh" title="sendgrid.sh">sendgrid.sh</a>
+          </td>
+          <td class="size">2.2 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="slack.sh"
+          data-size="1549"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="slack.sh" title="slack.sh">slack.sh</a>
+          </td>
+          <td class="size">1.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="slack_app.sh"
+          data-size="1381"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="slack_app.sh" title="slack_app.sh">slack_app.sh</a>
+          </td>
+          <td class="size">1.3 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="smtp.sh"
+          data-size="12647"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="smtp.sh" title="smtp.sh">smtp.sh</a>
+          </td>
+          <td class="size">12.4 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="teams.sh"
+          data-size="2165"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="teams.sh" title="teams.sh">teams.sh</a>
+          </td>
+          <td class="size">2.1 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="telegram.sh"
+          data-size="2700"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="telegram.sh" title="telegram.sh">telegram.sh</a>
+          </td>
+          <td class="size">2.6 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="weixin_work.sh"
+          data-size="1584"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="weixin_work.sh" title="weixin_work.sh">weixin_work.sh</a>
+          </td>
+          <td class="size">1.5 KiB</td>
+        </tr>
+        <tr
+          data-type="file"
+          data-parent="false"
+          data-name="xmpp.sh"
+          data-size="1965"
+        >
+          <td class="icon">
+            <span class="entry-icon file" aria-hidden="true"></span>
+          </td>
+          <td class="name">
+            <a class="entry" href="xmpp.sh" title="xmpp.sh">xmpp.sh</a>
+          </td>
+          <td class="size">1.9 KiB</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    Powered by honeok
+  </footer>
+
+  <script>
+    (() => {
+      const table = document.querySelector("[data-list]");
+      const tbody = table?.querySelector("tbody");
+      if (!table || !tbody) {
+        return;
+      }
+
+      const rows = Array.from(tbody.querySelectorAll("tr[data-type]"));
+      if (rows.length < 2) {
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const column = params.get("C") || "N";
+      const order = params.get("O") || "A";
+      const direction = order === "D" ? -1 : 1;
+
+      rows.sort((left, right) => {
+        if (left.dataset.parent === "true") {
+          return -1;
+        }
+        if (right.dataset.parent === "true") {
+          return 1;
+        }
+
+        const leftType = left.dataset.type === "dir" ? 0 : 1;
+        const rightType = right.dataset.type === "dir" ? 0 : 1;
+        if (leftType !== rightType) {
+          return leftType - rightType;
+        }
+
+        if (column === "S") {
+          return (Number(left.dataset.size || 0) - Number(right.dataset.size || 0)) * direction;
+        }
+
+        return (left.dataset.name || "").localeCompare(
+          right.dataset.name || "",
+          undefined,
+          { numeric: true },
+        ) * direction;
+      });
+
+      rows.forEach((row) => tbody.appendChild(row));
+    })();
+  </script>
+</body>
+</html>
