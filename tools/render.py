@@ -205,6 +205,7 @@ def writeHeaders(projectTop: Path) -> None:
         "/*",
         f"  Cache-Control: {cacheControl}",
         "  X-Content-Type-Options: nosniff",
+        "  Content-Disposition: inline",
         "",
         "https://:project.pages.dev/*",
         "  X-Robots-Tag: noindex",
