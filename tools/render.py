@@ -10,16 +10,23 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
-excludedNames = {
-    "CNAME",
-    "manifest.json",
-    "requirements.txt",
+excludedDirs = {
+    "publish",
+    "release-worktree",
     "tools",
     "templates",
     "__pycache__",
 }
+
+excludedFiles = {
+    "CNAME",
+    "manifest.json",
+    "requirements.txt",
+}
+
+defaultIcon = "https://fastly.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
 
 
 def getProjectTop() -> Path:
@@ -95,9 +102,11 @@ def shouldExclude(filePath: Path) -> bool:
         return True
     if fileName.startswith("_"):
         return True
+    if filePath.is_dir():
+        return fileName in excludedDirs
     if fileName.endswith(".html"):
         return True
-    if fileName in excludedNames:
+    if fileName in excludedFiles:
         return True
     return False
 
@@ -109,33 +118,50 @@ def sortLikeGitHub(filePath: Path) -> tuple[int, str]:
     )
 
 
+def getCurrentPath(projectTop: Path, currentDir: Path) -> str:
+    relativePath = currentDir.relative_to(projectTop).as_posix()
+    if relativePath == ".":
+        return "/"
+    return f"/{relativePath}/"
+
+
 def buildEntries(
     projectTop: Path,
     currentDir: Path,
-    depthLevel: int = 0,
+    includeParent: bool,
 ) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
+
+    if includeParent:
+        entries.append(
+            {
+                "type": "dir",
+                "name": "Parent directory/",
+                "title": "Parent directory",
+                "href": "../",
+                "size": "-",
+                "sizeBytes": 0,
+                "sortName": "..",
+                "parent": True,
+            }
+        )
 
     for childPath in sorted(currentDir.iterdir(), key=sortLikeGitHub):
         if shouldExclude(childPath):
             continue
-        relativePath = childPath.relative_to(projectTop).as_posix()
+        childStat = childPath.stat()
         if childPath.is_dir():
             entries.append(
                 {
                     "type": "dir",
                     "name": f"{childPath.name}/",
-                    "href": "",
+                    "title": childPath.name,
+                    "href": quote(childPath.name, safe="") + "/",
                     "size": "-",
-                    "level": depthLevel,
+                    "sizeBytes": 0,
+                    "sortName": childPath.name.casefold(),
+                    "parent": False,
                 }
-            )
-            entries.extend(
-                buildEntries(
-                    projectTop=projectTop,
-                    currentDir=childPath,
-                    depthLevel=depthLevel + 1,
-                )
             )
             continue
         if childPath.is_file():
@@ -143,15 +169,52 @@ def buildEntries(
                 {
                     "type": "file",
                     "name": childPath.name,
-                    "href": "/" + quote(relativePath, safe="/"),
-                    "size": formatSize(childPath.stat().st_size),
-                    "level": depthLevel,
+                    "title": childPath.name,
+                    "href": quote(childPath.name, safe=""),
+                    "size": formatSize(childStat.st_size),
+                    "sizeBytes": childStat.st_size,
+                    "sortName": childPath.name.casefold(),
+                    "parent": False,
                 }
             )
     return entries
 
 
-def writeHeaders(projectTop: Path, entries: list[dict[str, Any]]) -> None:
+def iterPublicFiles(projectTop: Path, currentDir: Path) -> list[Path]:
+    publicFiles: list[Path] = []
+
+    for childPath in sorted(currentDir.iterdir(), key=sortLikeGitHub):
+        if childPath.is_dir():
+            if shouldExclude(childPath):
+                continue
+            publicFiles.extend(iterPublicFiles(projectTop, childPath))
+            continue
+        if not childPath.is_file():
+            continue
+        if childPath.name == "index.html":
+            publicFiles.append(childPath)
+            continue
+        if shouldExclude(childPath):
+            continue
+        publicFiles.append(childPath)
+
+    return publicFiles
+
+
+def iterPublicDirs(projectTop: Path, currentDir: Path) -> list[Path]:
+    publicDirs = [currentDir]
+
+    for childPath in sorted(currentDir.iterdir(), key=sortLikeGitHub):
+        if not childPath.is_dir():
+            continue
+        if shouldExclude(childPath):
+            continue
+        publicDirs.extend(iterPublicDirs(projectTop, childPath))
+
+    return publicDirs
+
+
+def writeHeaders(projectTop: Path) -> None:
     headersFile = projectTop / "_headers"
     cacheControl = "public, max-age=300, stale-while-revalidate=30, stale-if-error=60"
 
@@ -163,21 +226,18 @@ def writeHeaders(projectTop: Path, entries: list[dict[str, Any]]) -> None:
         "https://:project.pages.dev/*",
         "  X-Robots-Tag: noindex",
         "",
-        "/index.html",
-        "  Content-Type: text/html; charset=utf-8",
-        "  Content-Disposition: inline",
-        "",
     ]
 
-    for entry in entries:
-        if entry["type"] != "file":
-            continue
-        href = entry["href"]
-        filePath = projectTop / href.lstrip("/")
+    for filePath in iterPublicFiles(projectTop, projectTop):
+        href = "/" + quote(filePath.relative_to(projectTop).as_posix(), safe="/")
         if not filePath.is_file():
             continue
-        textFile = isTextFile(filePath)
-        contentType = guessContentType(filePath, textFile)
+        if filePath.name == "index.html":
+            textFile = True
+            contentType = "text/html; charset=utf-8"
+        else:
+            textFile = isTextFile(filePath)
+            contentType = guessContentType(filePath, textFile)
         lines.append(href)
         lines.append(f"  Content-Type: {contentType}")
         if textFile:
@@ -189,31 +249,43 @@ def writeHeaders(projectTop: Path, entries: list[dict[str, Any]]) -> None:
     headersFile.write_text("\n".join(lines), encoding="utf-8")
 
 
+def normalizeManifest(manifest: dict[str, Any]) -> dict[str, Any]:
+    site = dict(manifest["site"])
+    site.setdefault("icon", defaultIcon)
+    return {**manifest, "site": site}
+
+
 def renderIndex(projectTop: Path, manifest: dict[str, Any]) -> None:
     templateDir = projectTop / "templates"
-    outputFile = projectTop / "index.html"
     templateEnv = Environment(
         loader=FileSystemLoader(templateDir),
-        autoescape=select_autoescape(["html", "xml"]),
+        autoescape=True,
         trim_blocks=True,
         lstrip_blocks=True,
     )
     template = templateEnv.get_template("index.html.j2")
-    entries = buildEntries(projectTop, projectTop)
-    html = template.render(
-        site=manifest["site"],
-        currentPath="/",
-        generatedAt=formatBuildTime(),
-        entries=entries,
-    )
-    outputFile.write_text(html, encoding="utf-8")
-    writeHeaders(projectTop, entries)
+    generatedAt = formatBuildTime()
+
+    for currentDir in iterPublicDirs(projectTop, projectTop):
+        outputFile = currentDir / "index.html"
+        html = template.render(
+            site=manifest["site"],
+            currentPath=getCurrentPath(projectTop, currentDir),
+            generatedAt=generatedAt,
+            entries=buildEntries(
+                projectTop=projectTop,
+                currentDir=currentDir,
+                includeParent=currentDir != projectTop,
+            ),
+        )
+        outputFile.write_text(html, encoding="utf-8")
+    writeHeaders(projectTop)
 
 
 def main() -> None:
     projectTop = getProjectTop()
     manifestFile = projectTop / "manifest.json"
-    manifest = loadJson(manifestFile)
+    manifest = normalizeManifest(loadJson(manifestFile))
     renderIndex(projectTop, manifest)
     log("Generated index.html")
     log("Generated _headers")

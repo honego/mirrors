@@ -47,45 +47,127 @@ curl() {
     done
 }
 
+sync_file() {
+    local dest_dir dest_file dest_name dest_sha256_file item_name item_path item_source old_sha256 tmp_file tmp_sha256
+
+    item_name="$1"
+    item_source="$2"
+    item_path="$3"
+
+    # 拼接目标路径 目标文件名
+    dest_file="$PROJECT_TOP/$item_path"     # $PROJECT_TOP/gradle/gradlew
+    dest_dir="$(dirname "$dest_file")"      # $PROJECT_TOP/gradle
+    dest_name="$(basename "$dest_file")"    # gradlew
+    tmp_file="$dest_file.tmp"               # $PROJECT_TOP/gradle/gradlew.tmp
+    dest_sha256_file="$dest_file.sha256sum" # $PROJECT_TOP/gradle/gradlew.sha256sum
+
+    # 目标文件夹不存在则创建
+    [ -d "$dest_dir" ] || mkdir -p "$dest_dir"
+
+    _log "Sync $item_name $item_path From $item_source"
+
+    curl -Ls "$item_source" -o "$tmp_file"
+
+    # 计算新下载文件的 sha256
+    tmp_sha256="$(sha256sum "$tmp_file" | awk '{print $1}')"
+
+    # 如果正式文件已存在就计算 sha256
+    if [ -f "$dest_file" ]; then
+        old_sha256="$(sha256sum "$dest_file" | awk '{print $1}')"
+    else
+        old_sha256=""
+    fi
+
+    # 对比哈希并更新文件
+    if [ "$tmp_sha256" = "$old_sha256" ]; then
+        rm -f "$tmp_file"
+        _log "Unchanged $item_name $item_path"
+    else
+        mv -f "$tmp_file" "$dest_file"
+        printf '%s %s\n' "$tmp_sha256" "$dest_name" > "$dest_sha256_file"
+        _log "Updated $item_name $item_path"
+    fi
+}
+
+sync_repository() {
+    local dest_dir item_name item_path item_source tmp_dir worktree
+
+    item_name="$1"
+    item_source="$2"
+    item_path="$3"
+
+    # 拼接存储库保存目录
+    dest_dir="$PROJECT_TOP/$item_path" # $PROJECT_TOP/acme.sh
+
+    # 目标文件夹不存在则创建
+    [ -d "$dest_dir" ] || mkdir -p "$dest_dir"
+
+    # 克隆临时存储库
+    tmp_dir="$(mktemp -d "$PROJECT_TOP/.repo-sync.XXXXXX")"
+    worktree="$tmp_dir/worktree"
+    _log "Sync $item_name $item_path From $item_source"
+    git clone --depth 1 "$item_source" "$worktree"
+
+    # 同步存储库文件
+    rsync -a --delete --exclude ".git/" "$worktree/" "$dest_dir/"
+    rm -rf "$tmp_dir"
+    _log "Updated $item_name $item_path"
+}
+
 main() {
+    local item_is_repository item_name item_path item_path_count item_path_type
+    local item_source item_source_count item_source_type
+
     pushd "$PROJECT_TOP" || exit 1
     for i in $(seq 0 $((ITEM_COUNT - 1))); do
-        item_name="$(jq -er ".items[$i].name" "$MANIFEST_FILE")"     # 文件名
-        item_source="$(jq -er ".items[$i].source" "$MANIFEST_FILE")" # 上游地址
-        item_path="$(jq -er ".items[$i].path" "$MANIFEST_FILE")"     # 保存目录
+        item_name="$(jq -r ".items[$i].name // \"item-$i\"" "$MANIFEST_FILE")"   # 文件名
+        item_source_type="$(jq -er ".items[$i].source | type" "$MANIFEST_FILE")" # 上游地址类型
+        item_path_type="$(jq -er ".items[$i].path | type" "$MANIFEST_FILE")"     # 保存路径类型
+        item_is_repository="$(
+            jq -r \
+                "(.items[$i].isRepository // false) as \$isRepository |
+                if (\$isRepository | type) == \"boolean\" then \$isRepository else \"invalid\" end" \
+                "$MANIFEST_FILE"
+        )" # 是否为存储库
 
-        # 拼接目标路径 目标文件名
-        dest_dir="$PROJECT_TOP/$item_path"      # $PROJECT_TOP/gradle
-        dest_file="$dest_dir/$item_name"        # $PROJECT_TOP/gradle/gradlew
-        tmp_file="$dest_file.tmp"               # $PROJECT_TOP/gradle/gradlew.tmp
-        dest_sha256_file="$dest_file.sha256sum" # $PROJECT_TOP/gradle/gradlew.sha256sum
-
-        # 目标文件夹不存在则创建
-        [ -d "$dest_dir" ] || mkdir -p "$dest_dir"
-
-        _log "Sync $item_path/$item_name From $item_source"
-
-        curl -Ls "$item_source" -o "$tmp_file"
-
-        # 计算新下载文件的 sha256
-        tmp_sha256="$(sha256sum "$tmp_file" | awk '{print $1}')"
-
-        # 如果正式文件已存在就计算 sha256
-        if [ -f "$dest_file" ]; then
-            old_sha256="$(sha256sum "$dest_file" | awk '{print $1}')"
-        else
-            old_sha256=""
+        if [ "$item_is_repository" = "invalid" ]; then
+            die "Item isRepository must be a boolean"
         fi
 
-        # 对比哈希并更新文件
-        if [ "$tmp_sha256" = "$old_sha256" ]; then
-            rm -f "$tmp_file"
-            _log "Unchanged $item_path/$item_name"
-        else
-            mv -f "$tmp_file" "$dest_file"
-            printf '%s %s\n' "$tmp_sha256" "$item_name" > "$dest_sha256_file"
-            _log "Updated $item_path/$item_name"
+        if [ "$item_is_repository" = "true" ]; then
+            if [ "$item_source_type" != "string" ] || [ "$item_path_type" != "string" ]; then
+                die "Repository item source and path must be strings"
+            fi
+
+            item_source="$(jq -er ".items[$i].source" "$MANIFEST_FILE")" # 上游地址
+            item_path="$(jq -er ".items[$i].path" "$MANIFEST_FILE")"     # 保存目录
+            sync_repository "$item_name" "$item_source" "$item_path"
+            continue
         fi
+
+        if [ "$item_source_type" = "string" ] && [ "$item_path_type" = "string" ]; then
+            item_source="$(jq -er ".items[$i].source" "$MANIFEST_FILE")" # 上游地址
+            item_path="$(jq -er ".items[$i].path" "$MANIFEST_FILE")"     # 保存路径
+            sync_file "$item_name" "$item_source" "$item_path"
+            continue
+        fi
+
+        if [ "$item_source_type" = "array" ] && [ "$item_path_type" = "array" ]; then
+            item_source_count="$(jq -er ".items[$i].source | length" "$MANIFEST_FILE")"
+            item_path_count="$(jq -er ".items[$i].path | length" "$MANIFEST_FILE")"
+            if [ "$item_source_count" -ne "$item_path_count" ]; then
+                die "Item source and path array length mismatch"
+            fi
+
+            for j in $(seq 0 $((item_source_count - 1))); do
+                item_source="$(jq -er ".items[$i].source[$j]" "$MANIFEST_FILE")" # 上游地址
+                item_path="$(jq -er ".items[$i].path[$j]" "$MANIFEST_FILE")"     # 保存路径
+                sync_file "$item_name" "$item_source" "$item_path"
+            done
+            continue
+        fi
+
+        die "Item source and path must both be strings or arrays"
     done
     popd
 }

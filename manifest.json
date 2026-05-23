@@ -5,44 +5,44 @@
     "repository": "https://github.com/honeokX/mirrors"
   },
   "defaults": {
-    "checksum": true,
-    "warnBytes": 10485760
+    "checksum": true
   },
   "items": [
     {
       "name": "acme.sh",
-      "source": "https://github.com/acmesh-official/acme.sh/raw/master/acme.sh",
-      "path": "acme"
+      "source": "https://github.com/acmesh-official/acme.sh",
+      "path": "acme.sh",
+      "isRepository": true
     },
     {
       "name": "install.sh",
       "source": "https://get.docker.com",
-      "path": "docker"
+      "path": "docker/install.sh",
+      "isRepository": false
     },
     {
       "name": "gradlew",
-      "source": "https://github.com/gradle/gradle/raw/master/gradlew",
-      "path": "gradle"
+      "source": [
+        "https://github.com/gradle/gradle/raw/master/gradlew",
+        "https://github.com/gradle/gradle/raw/master/gradlew.bat"
+      ],
+      "path": ["gradle/gradlew", "gradle/gradlew.bat"],
+      "isRepository": false
     },
     {
-      "name": "gradlew.bat",
-      "source": "https://github.com/gradle/gradle/raw/master/gradlew.bat",
-      "path": "gradle"
+      "name": "maven",
+      "source": [
+        "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw",
+        "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw.cmd"
+      ],
+      "path": ["maven/mvnw", "maven/mvnw.cmd"],
+      "isRepository": false
     },
     {
-      "name": "mvnw",
-      "source": "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw",
-      "path": "maven"
-    },
-    {
-      "name": "mvnw.cmd",
-      "source": "https://github.com/apache/maven-wrapper/raw/master/maven-wrapper-distribution/src/resources/mvnw.cmd",
-      "path": "maven"
-    },
-    {
-      "name": "install.sh",
-      "source": "https://github.com/ohmyzsh/ohmyzsh/raw/master/tools/install.sh",
-      "path": "ohmyzsh"
+      "name": "warp.sh",
+      "source": "https://gitlab.com/fscarmen/warp",
+      "path": "warp.sh",
+      "isRepository": true
     }
   ]
 }
