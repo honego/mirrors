@@ -223,10 +223,7 @@ def writeHeaders(projectTop: Path) -> None:
             contentType = guessContentType(filePath, textFile)
         lines.append(href)
         lines.append(f"  Content-Type: {contentType}")
-        if textFile:
-            lines.append("  Content-Disposition: inline")
-        else:
-            lines.append("  Content-Disposition: attachment")
+        lines.append("  Content-Disposition: inline")
         lines.append("  X-Robots-Tag: noindex")
         lines.append("")
     headersFile.write_text("\n".join(lines), encoding="utf-8")
