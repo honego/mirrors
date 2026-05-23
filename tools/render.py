@@ -95,6 +95,10 @@ def guessContentType(filePath: Path, textFile: bool) -> str:
     return "application/octet-stream"
 
 
+def getPublicHref(projectTop: Path, filePath: Path) -> str:
+    return "/" + quote(filePath.relative_to(projectTop).as_posix(), safe="/")
+
+
 def shouldExclude(filePath: Path) -> bool:
     fileName = filePath.name
 
@@ -184,6 +188,25 @@ def iterPublicFiles(projectTop: Path, currentDir: Path) -> list[Path]:
     return publicFiles
 
 
+def buildFileHeaders(projectTop: Path) -> dict[str, dict[str, str]]:
+    fileHeaders: dict[str, dict[str, str]] = {}
+
+    for filePath in iterPublicFiles(projectTop, projectTop):
+        href = getPublicHref(projectTop, filePath)
+        if filePath.name == "index.html":
+            textFile = True
+            contentType = "text/html; charset=utf-8"
+        else:
+            textFile = isTextFile(filePath)
+            contentType = guessContentType(filePath, textFile)
+        fileHeaders[href] = {
+            "contentType": contentType,
+            "disposition": "inline" if textFile else "attachment",
+        }
+
+    return fileHeaders
+
+
 def iterPublicDirs(projectTop: Path, currentDir: Path) -> list[Path]:
     publicDirs = [currentDir]
 
@@ -210,26 +233,55 @@ def writeHeaders(projectTop: Path) -> None:
         "  X-Robots-Tag: noindex",
         "",
     ]
-
-    for filePath in iterPublicFiles(projectTop, projectTop):
-        href = "/" + quote(filePath.relative_to(projectTop).as_posix(), safe="/")
-        if not filePath.is_file():
-            continue
-        if filePath.name == "index.html":
-            textFile = True
-            contentType = "text/html; charset=utf-8"
-        else:
-            textFile = isTextFile(filePath)
-            contentType = guessContentType(filePath, textFile)
-        lines.append(href)
-        lines.append(f"  Content-Type: {contentType}")
-        if textFile:
-            lines.append("  Content-Disposition: inline")
-        else:
-            lines.append("  Content-Disposition: attachment")
-        lines.append("  X-Robots-Tag: noindex")
-        lines.append("")
     headersFile.write_text("\n".join(lines), encoding="utf-8")
+
+
+def writeWorker(projectTop: Path, fileHeaders: dict[str, dict[str, str]]) -> None:
+    workerFile = projectTop / "_worker.js"
+    cacheControl = "public, max-age=300, stale-while-revalidate=30, stale-if-error=60"
+    headersJson = json.dumps(
+        fileHeaders, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+    )
+    workerJs = f"""const fileHeaders = {headersJson};
+
+function getAssetPath(pathname) {{
+  if (pathname.endsWith("/")) {{
+    return `${{pathname}}index.html`;
+  }}
+  return pathname;
+}}
+
+export default {{
+  async fetch(request, env) {{
+    const url = new URL(request.url);
+    const response = await env.ASSETS.fetch(request);
+    if (!response.ok) {{
+      return response;
+    }}
+
+    const assetPath = getAssetPath(url.pathname);
+    const fileHeader = fileHeaders[assetPath];
+    const headers = new Headers(response.headers);
+    headers.set("Cache-Control", "{cacheControl}");
+    headers.set("X-Content-Type-Options", "nosniff");
+    if (url.hostname.endsWith(".pages.dev")) {{
+      headers.set("X-Robots-Tag", "noindex");
+    }}
+
+    if (fileHeader) {{
+      headers.set("Content-Type", fileHeader.contentType);
+      headers.set("Content-Disposition", fileHeader.disposition);
+    }}
+
+    return new Response(response.body, {{
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    }});
+  }},
+}};
+"""
+    workerFile.write_text(workerJs, encoding="utf-8")
 
 
 def normalizeManifest(manifest: dict[str, Any]) -> dict[str, Any]:
@@ -261,7 +313,9 @@ def renderIndex(projectTop: Path, manifest: dict[str, Any]) -> None:
             ),
         )
         outputFile.write_text(html, encoding="utf-8")
+    fileHeaders = buildFileHeaders(projectTop)
     writeHeaders(projectTop)
+    writeWorker(projectTop, fileHeaders)
 
 
 def main() -> None:
@@ -271,6 +325,7 @@ def main() -> None:
     renderIndex(projectTop, manifest)
     log("Generated index.html")
     log("Generated _headers")
+    log("Generated _worker.js")
 
 
 if __name__ == "__main__":
