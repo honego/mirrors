@@ -169,7 +169,7 @@
       <a href="https://github.com/honeokX/mirrors" target="_blank" rel="noopener noreferrer">https://github.com/honeokX/mirrors</a>
     </div>
 
-    <div class="meta">Last Sync: 2026-05-23T08:04:02.349Z</div>
+    <div class="meta">Last Sync: 2026-05-23T08:12:29.495Z</div>
   </header>
 
   <main>
@@ -190,22 +190,7 @@
 
       <tbody>
         <tr
-          data-type="dir"
-          data-parent="true"
-          data-name=".."
-          data-size="0"
-        >
-          <td class="icon">
-            <span class="entry-icon dir" aria-hidden="true"></span>
-          </td>
-          <td class="name">
-            <a class="entry" href="../" title="Parent directory">Parent directory/</a>
-          </td>
-          <td class="size">-</td>
-        </tr>
-        <tr
           data-type="file"
-          data-parent="false"
           data-name="aws_ses.sh"
           data-size="6856"
         >
@@ -219,7 +204,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="bark.sh"
           data-size="3878"
         >
@@ -233,7 +217,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="callmebotwhatsapp.sh"
           data-size="1443"
         >
@@ -247,7 +230,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="cqhttp.sh"
           data-size="2211"
         >
@@ -261,7 +243,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="dingtalk.sh"
           data-size="2318"
         >
@@ -275,7 +256,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="discord.sh"
           data-size="1646"
         >
@@ -289,7 +269,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="feishu.sh"
           data-size="1375"
         >
@@ -303,7 +282,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="gotify.sh"
           data-size="1647"
         >
@@ -317,7 +295,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="ifttt.sh"
           data-size="3057"
         >
@@ -331,7 +308,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mail.sh"
           data-size="3180"
         >
@@ -345,7 +321,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mailgun.sh"
           data-size="4221"
         >
@@ -359,7 +334,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mattermost.sh"
           data-size="1802"
         >
@@ -373,7 +347,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="ntfy.sh"
           data-size="1619"
         >
@@ -387,7 +360,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="opsgenie.sh"
           data-size="4653"
         >
@@ -401,7 +373,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="pop.sh"
           data-size="290"
         >
@@ -415,7 +386,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="postmark.sh"
           data-size="1980"
         >
@@ -429,7 +399,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="pushbullet.sh"
           data-size="1621"
         >
@@ -443,7 +412,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="pushover.sh"
           data-size="2392"
         >
@@ -457,7 +425,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="sendgrid.sh"
           data-size="2269"
         >
@@ -471,7 +438,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="slack.sh"
           data-size="1549"
         >
@@ -485,7 +451,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="slack_app.sh"
           data-size="1381"
         >
@@ -499,7 +464,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="smtp.sh"
           data-size="12647"
         >
@@ -513,7 +477,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="teams.sh"
           data-size="2165"
         >
@@ -527,7 +490,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="telegram.sh"
           data-size="2700"
         >
@@ -541,7 +503,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="weixin_work.sh"
           data-size="1584"
         >
@@ -555,7 +516,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="xmpp.sh"
           data-size="1965"
         >
@@ -594,13 +554,6 @@
       const direction = order === "D" ? -1 : 1;
 
       rows.sort((left, right) => {
-        if (left.dataset.parent === "true") {
-          return -1;
-        }
-        if (right.dataset.parent === "true") {
-          return 1;
-        }
-
         const leftType = left.dataset.type === "dir" ? 0 : 1;
         const rightType = right.dataset.type === "dir" ? 0 : 1;
         if (leftType !== rightType) {

@@ -169,7 +169,7 @@
       <a href="https://github.com/honeokX/mirrors" target="_blank" rel="noopener noreferrer">https://github.com/honeokX/mirrors</a>
     </div>
 
-    <div class="meta">Last Sync: 2026-05-23T08:04:02.349Z</div>
+    <div class="meta">Last Sync: 2026-05-23T08:12:29.495Z</div>
   </header>
 
   <main>
@@ -190,22 +190,7 @@
 
       <tbody>
         <tr
-          data-type="dir"
-          data-parent="true"
-          data-name=".."
-          data-size="0"
-        >
-          <td class="icon">
-            <span class="entry-icon dir" aria-hidden="true"></span>
-          </td>
-          <td class="name">
-            <a class="entry" href="../" title="Parent directory">Parent directory/</a>
-          </td>
-          <td class="size">-</td>
-        </tr>
-        <tr
           data-type="file"
-          data-parent="false"
           data-name="mvnw"
           data-size="11415"
         >
@@ -219,7 +204,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mvnw.cmd"
           data-size="7803"
         >
@@ -233,7 +217,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mvnw.cmd.sha256sum"
           data-size="74"
         >
@@ -247,7 +230,6 @@
         </tr>
         <tr
           data-type="file"
-          data-parent="false"
           data-name="mvnw.sha256sum"
           data-size="70"
         >
@@ -286,13 +268,6 @@
       const direction = order === "D" ? -1 : 1;
 
       rows.sort((left, right) => {
-        if (left.dataset.parent === "true") {
-          return -1;
-        }
-        if (right.dataset.parent === "true") {
-          return 1;
-        }
-
         const leftType = left.dataset.type === "dir" ? 0 : 1;
         const rightType = right.dataset.type === "dir" ? 0 : 1;
         if (leftType !== rightType) {
