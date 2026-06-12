@@ -99,7 +99,7 @@ set -e
 
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
-SCRIPT_COMMIT_SHA="2687d91ddeb3bd6aeae37a90947761efdee87030"
+SCRIPT_COMMIT_SHA="e353d074b1c7282adf965f82216b0f57fff20004"
 
 # strip "v" prefix if present
 VERSION="${VERSION#v}"
@@ -547,7 +547,7 @@ do_install() {
 			deprecation_notice "$lsb_dist" "$dist_version"
 			;;
 		fedora.*)
-			if [ "$dist_version" -lt 41 ]; then
+			if [ "$dist_version" -lt 43 ]; then
 				deprecation_notice "$lsb_dist" "$dist_version"
 			fi
 			;;
