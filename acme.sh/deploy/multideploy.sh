@@ -210,7 +210,7 @@ _clear_envs() {
 
   echo "$env_pairs" | while IFS='=' read -r _key _value; do
     _debug3 "Deleting key" "$_key"
-    _cleardomainconf "SAVED_$_key"
+    _cleardeployconf "$_key"
     unset -v "$_key"
   done
 }

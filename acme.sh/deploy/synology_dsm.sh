@@ -72,7 +72,7 @@ synology_dsm_deploy() {
 
   if [ -n "$SYNO_USE_TEMP_ADMIN" ]; then
     if ! _exists synouser || ! _exists synogroup || ! _exists synosetkeyvalue; then
-      _err "Missing required tools to creat temp admin user, please set SYNO_USERNAME and SYNO_PASSWORD instead."
+      _err "Missing required tools to create temp admin user, please set SYNO_USERNAME and SYNO_PASSWORD instead."
       _err "Notice: temp admin user authorization method only supports local deployment on DSM."
       return 1
     fi
@@ -234,7 +234,7 @@ synology_dsm_deploy() {
     fi
   fi
 
-  error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -o '[0-9]*')
+  error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -Eo '[0-9]+')
   _debug2 error_code "$error_code"
   # Account has 2FA-OTP enabled, since error 403 reported.
   # https://global.download.synology.com/download/Document/Software/DeveloperGuide/Os/DSM/All/enu/DSM_Login_Web_API_Guide_enu.pdf
@@ -269,7 +269,7 @@ synology_dsm_deploy() {
         _secure_debug2 SYNO_DEVICE_ID "$SYNO_DEVICE_ID"
       fi
     fi
-    error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -o '[0-9]*')
+    error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -Eo '[0-9]+')
     _debug2 error_code "$error_code"
   fi
 
@@ -336,7 +336,7 @@ synology_dsm_deploy() {
   id=$(echo "$response" | sed -n "s/.*\"desc\":\"$escaped_certificate\",\"id\":\"\([^\"]*\).*/\1/p")
   _debug2 id "$id"
 
-  error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -o '[0-9]*')
+  error_code=$(echo "$response" | grep '"error":' | grep -o '"code":[0-9]*' | grep -Eo '[0-9]+')
   _debug2 error_code "$error_code"
   if [ -n "$error_code" ]; then
     if [ "$error_code" -eq 105 ]; then
@@ -422,11 +422,6 @@ _temp_admin_cleanup() {
     _debug "Cleanuping temp admin info..."
     synouser --del "$_username" >/dev/null
   fi
-}
-
-#_cleardeployconf   key
-_cleardeployconf() {
-  _cleardomainconf "SAVED_$1"
 }
 
 # key
