@@ -18,6 +18,7 @@ dns_dnsimple_add() {
   fulldomain=$1
   txtvalue=$2
 
+  DNSimple_OAUTH_TOKEN="${DNSimple_OAUTH_TOKEN:-$(_readaccountconf_mutable DNSimple_OAUTH_TOKEN)}"
   if [ -z "$DNSimple_OAUTH_TOKEN" ]; then
     DNSimple_OAUTH_TOKEN=""
     _err "You have not set the dnsimple oauth token yet."
@@ -26,7 +27,7 @@ dns_dnsimple_add() {
   fi
 
   # save the oauth token for later
-  _saveaccountconf DNSimple_OAUTH_TOKEN "$DNSimple_OAUTH_TOKEN"
+  _saveaccountconf_mutable DNSimple_OAUTH_TOKEN "$DNSimple_OAUTH_TOKEN"
 
   if ! _get_account_id; then
     _err "failed to retrieve account id"
@@ -56,6 +57,12 @@ dns_dnsimple_add() {
 # fulldomain
 dns_dnsimple_rm() {
   fulldomain=$1
+
+  DNSimple_OAUTH_TOKEN="${DNSimple_OAUTH_TOKEN:-$(_readaccountconf_mutable DNSimple_OAUTH_TOKEN)}"
+  if [ -z "$DNSimple_OAUTH_TOKEN" ]; then
+    _err "You have not set the dnsimple oauth token yet."
+    return 1
+  fi
 
   if ! _get_account_id; then
     _err "failed to retrieve account id"
@@ -123,9 +130,9 @@ _get_root() {
 
 # returns _account_id
 _get_account_id() {
-  DNSimple_ACCOUNT_ID="${DNSimple_ACCOUNT_ID:-$(_readaccountconf DNSimple_ACCOUNT_ID)}"
+  DNSimple_ACCOUNT_ID="${DNSimple_ACCOUNT_ID:-$(_readaccountconf_mutable DNSimple_ACCOUNT_ID)}"
   if [ "$DNSimple_ACCOUNT_ID" ]; then
-    _saveaccountconf DNSimple_ACCOUNT_ID "$DNSimple_ACCOUNT_ID"
+    _saveaccountconf_mutable DNSimple_ACCOUNT_ID "$DNSimple_ACCOUNT_ID"
     _account_id="$DNSimple_ACCOUNT_ID"
     _debug _account_id "$_account_id"
     return 0

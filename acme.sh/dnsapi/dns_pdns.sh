@@ -189,19 +189,23 @@ _get_root() {
   domain=$1
   i=1
 
-  if _pdns_rest "GET" "/api/v1/servers/$PDNS_ServerId/zones"; then
-    _zones_response=$(echo "$response" | _normalizeJson)
-  fi
-
   while true; do
     h=$(printf "%s" "$domain" | cut -d . -f "$i"-100)
 
-    if _contains "$_zones_response" "\"name\":\"$h.\""; then
-      _domain="$h."
-      if [ -z "$h" ]; then
-        _domain="=2E"
+    # Probe each candidate zone with the server-side name filter instead of
+    # listing every zone: with large installations (100k zones) the
+    # unfiltered list takes minutes. Servers that ignore the parameter
+    # return the full list, which the check below still handles.
+    # https://doc.powerdns.com/authoritative/http-api/zone.html
+    if _pdns_rest "GET" "/api/v1/servers/$PDNS_ServerId/zones?zone=$h."; then
+      _zones_response=$(echo "$response" | _normalizeJson)
+      if _contains "$_zones_response" "\"name\":\"$h.\""; then
+        _domain="$h."
+        if [ -z "$h" ]; then
+          _domain="=2E"
+        fi
+        return 0
       fi
-      return 0
     fi
 
     if [ -z "$h" ]; then

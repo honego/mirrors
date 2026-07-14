@@ -182,7 +182,11 @@ dns_infomaniak_rm() {
 _get_zone() {
   domain="$1"
   # Whatever the domain is, you can get the fqdn with the following.
-  # shellcheck disable=SC1004
-  response=$(_get "${INFOMANIAK_API_URL}/2/domains/${domain}/zones" | sed 's/.*\[{"fqdn"\:"\(.*\)/\1/')
-  echo "${response%%\"*}"
+  response=$(_get "${INFOMANIAK_API_URL}/2/domains/${domain}/zones")
+  _debug2 "_get_zone response" "$response"
+  if ! _contains "$response" '"result":"success"'; then
+    _err "cannot get zones for ${domain}, response: ${response}"
+    return 1
+  fi
+  echo "$response" | _egrep_o '"fqdn" *: *"[^"]*"' | _head_n 1 | cut -d '"' -f 4
 }

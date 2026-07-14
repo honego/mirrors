@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 ################################################################################
 # ACME.sh 3rd party deploy plugin for Synology DSM
@@ -238,7 +238,7 @@ synology_dsm_deploy() {
   _debug2 error_code "$error_code"
   # Account has 2FA-OTP enabled, since error 403 reported.
   # https://global.download.synology.com/download/Document/Software/DeveloperGuide/Os/DSM/All/enu/DSM_Login_Web_API_Guide_enu.pdf
-  if [ "$error_code" == "403" ]; then
+  if [ "$error_code" = "403" ]; then
     if [ -z "$SYNO_DEVICE_NAME" ]; then
       printf "Enter device name or leave empty for default (CertRenewal): "
       read -r SYNO_DEVICE_NAME
@@ -274,22 +274,22 @@ synology_dsm_deploy() {
   fi
 
   if [ -n "$error_code" ]; then
-    if [ "$error_code" == "403" ] && [ -n "$SYNO_DEVICE_ID" ]; then
+    if [ "$error_code" = "403" ] && [ -n "$SYNO_DEVICE_ID" ]; then
       _cleardeployconf SYNO_DEVICE_ID
       _err "Failed to authenticate with SYNO_DEVICE_ID (may be expired or invalid), please try again in a new terminal window."
-    elif [ "$error_code" == "404" ]; then
+    elif [ "$error_code" = "404" ]; then
       _err "Failed to authenticate with provided 2FA-OTP code, please try again in a new terminal window."
-    elif [ "$error_code" == "406" ]; then
+    elif [ "$error_code" = "406" ]; then
       if [ -n "$SYNO_USE_TEMP_ADMIN" ]; then
         _err "Failed with unexcepted error, please report this by providing full log with '--debug 3'."
       else
         _err "Enforce auth with 2FA-OTP enabled, please configure the user to enable 2FA-OTP to continue."
       fi
-    elif [ "$error_code" == "400" ]; then
+    elif [ "$error_code" = "400" ]; then
       _err "Failed to authenticate, no such account or incorrect password."
-    elif [ "$error_code" == "401" ]; then
+    elif [ "$error_code" = "401" ]; then
       _err "Failed to authenticate with a non-existent account."
-    elif [ "$error_code" == "408" ] || [ "$error_code" == "409" ] || [ "$error_code" == "410" ]; then
+    elif [ "$error_code" = "408" ] || [ "$error_code" = "409" ] || [ "$error_code" = "410" ]; then
       _err "Failed to authenticate, the account password has expired or must be changed."
     else
       _err "Failed to authenticate with error: $error_code."

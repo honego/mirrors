@@ -18,7 +18,9 @@ Ali_DNS_API="https://alidns.aliyuncs.com/"
 
 #Usage: dns_ali_add   _acme-challenge.www.domain.com   "XKrxpRBosdIKFzxW_CT3KLZNf6q0HG9i01zxXp5CPBs"
 dns_ali_add() {
-  fulldomain=$1
+  # the API only accepts punycode for IDN domains, and a raw UTF-8 domain
+  # also breaks the request signature (issue 4733)
+  fulldomain=$(_idn "$1")
   txtvalue=$2
 
   _prepare_ali_credentials || return 1
@@ -33,7 +35,7 @@ dns_ali_add() {
 }
 
 dns_ali_rm() {
-  fulldomain=$1
+  fulldomain=$(_idn "$1")
   txtvalue=$2
   Ali_Key="${Ali_Key:-$(_readaccountconf_mutable Ali_Key)}"
   Ali_Secret="${Ali_Secret:-$(_readaccountconf_mutable Ali_Secret)}"
