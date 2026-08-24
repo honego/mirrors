@@ -106,7 +106,7 @@ set -e
 
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
-SCRIPT_COMMIT_SHA="a23123f03978989e95d257beb9de0c5ad9da6e70"
+SCRIPT_COMMIT_SHA="42dcae692436f34526524ed46d3b32885c9355f5"
 
 # strip "v" prefix if present
 VERSION="${VERSION#v}"
@@ -139,6 +139,17 @@ DRY_RUN=${DRY_RUN:-}
 REPO_ONLY=${REPO_ONLY:-0}
 NO_AUTOSTART=${NO_AUTOSTART:-0}
 SBX=${SBX:-0}
+
+# Provide a helpful usage statement when --help or any invalid argument is passed
+# to the script. Exit code deliberately not included here as error depends on
+# argument provided.
+usage() {
+	echo
+	echo "USAGE: "
+	echo "    ${0} [--channel <stable|test>] [--mirror <Aliyun|AzureChinaCloud>] [--version <VERSION>] [--setup-repo] [--no-autostart] [--dry-run] [--help]"
+	echo
+}
+
 while [ $# -gt 0 ]; do
 	case "$1" in
 		--channel)
@@ -163,8 +174,14 @@ while [ $# -gt 0 ]; do
 		--no-autostart)
 			NO_AUTOSTART=1
 			;;
+		--help)
+			usage
+			exit 0
+			;;
 		--*)
 			echo "Illegal option $1"
+			usage
+			exit 1
 			;;
 	esac
 	shift $(( $# > 0 ? 1 : 0 ))
